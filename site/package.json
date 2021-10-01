@@ -1,0 +1,21 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "backend server",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node ./src/index.js",
+    "startdev": "nodemon ./src/index.js"
+  },
+  "author": "Oliver Sierra",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.4",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "node-fetch": "^3.0.0",
+    "nodemon": "^2.0.12"
+  }
+}
