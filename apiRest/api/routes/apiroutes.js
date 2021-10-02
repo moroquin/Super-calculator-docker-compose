@@ -32,13 +32,25 @@ router.get('/historial' , (req , res)=>{
     res.json({historial:['1+1=2','5*6=25']}).status(201);
 });
 
-router.post('/operacion' , (req , res)=>{
-    console.log(req.body);
-    let op1 = req.body["op1"];
-    let op2 = req.body["op2"];
-    let result = parseInt(op1)+parseInt(op2);
-    res.json({operacion:`${op1}+${op2}=${result}`}).status(201);
-    //res.json({historial:['1+1=2','5*5=25']}).status(201);
+router.post('/operacion' , async (req , res)=>{
+    const { op1,op2, ope } = req.body;
+    const params = {
+        ope1: op1, 
+        ope2: op2
+      };
+
+      console.log('http://'+workerhost+':'+workerport+'/math/'+ope);
+      
+    await axios.get('http://'+workerhost+':'+workerport+'/math/'+ope,{port: Number.parseInt(workerport), params})
+    .then(response => {
+        console.log(response.data);
+        res.json({operacion:`${op1}  ${ope}  ${op2}=${response.data.result}`}).status(201);
+    })
+    .catch(error => {
+        console.log("error");
+        console.log(error);
+        res.send("funciono");
+    });
 });
 
 
