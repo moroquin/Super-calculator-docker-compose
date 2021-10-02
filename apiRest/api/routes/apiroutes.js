@@ -1,7 +1,30 @@
 const express = require('express');
 const router = express.Router();
 router.use(express.json());
-//router.use(express.urlencoded());
+
+const axios = require('axios');
+
+const workerhost = process.env.WORKER_HOST;
+const workerport = process.env.WORKER_PORT;
+
+
+router.get('/prueba',async (req,res)=>{
+    console.log(workerhost+':'+workerport+'/math/');
+    await axios.get('http://'+workerhost+':'+workerport+'/math/',{port: Number.parseInt(workerport)})
+    .then(response => {
+        console.log(response.data);
+        res.status(201).json(response.data);
+    })
+    .catch(error => {
+        console.log("error");
+        console.log(error);
+        res.send("funciono");
+    });
+
+  //  console.log("funciono");
+   // res.send("funciono");
+});
+
 
 
 router.get('/historial' , (req , res)=>{
@@ -17,6 +40,8 @@ router.post('/operacion' , (req , res)=>{
     res.json({operacion:`${op1}+${op2}=${result}`}).status(201);
     //res.json({historial:['1+1=2','5*5=25']}).status(201);
 });
+
+
 
 
 
