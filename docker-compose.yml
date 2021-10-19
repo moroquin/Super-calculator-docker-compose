@@ -20,6 +20,7 @@ services:
       - REDIS_PORT=6379
       - WORKER_HOST=worker
       - WORKER_PORT=5000
+      - TOKEN_SECRET=asdfljsdfoi3429023
     depends_on: 
       - worker
     #ports: 
